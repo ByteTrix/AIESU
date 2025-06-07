@@ -28,7 +28,7 @@ export const SummaryResponse = ({ summary }: SummaryResponseProps) => {
         <div className="flex items-center justify-between animate-fade-in-up">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-purple-400 animate-star-rotation" />
-            <h3 className="text-lg font-semibold text-white">AI Summary</h3>
+            <h3 className="text-lg font-semibold text-purple-300">AI Summary</h3>
             <div className="flex space-x-1 ml-2">
               <div className="w-1 h-1 bg-purple-400 rounded-full animate-bounce"></div>
               <div className="w-1 h-1 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -59,6 +59,7 @@ export const SummaryResponse = ({ summary }: SummaryResponseProps) => {
             {/* Subtle animated border */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/20 to-transparent animate-pulse rounded-lg"></div>
             <div className="relative z-10 prose prose-sm max-w-none text-slate-50 
+                          prose-headings:text-purple-400 
                           prose-strong:text-yellow-400 
                           prose-a:text-blue-400 prose-a:underline 
                           prose-ul:list-disc prose-ul:pl-5 prose-li:my-1">

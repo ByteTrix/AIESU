@@ -12,8 +12,8 @@ export const Logo = () => {
         <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse-glow"></div>
       </div>
       <div className="flex flex-col">
-        <span className="text-white font-bold text-xl tracking-tight">EmailAI</span>
-        <span className="text-gray-400 text-xs">Smart Summarizer</span>
+        <span className="text-white font-bold text-xl tracking-tight">AIESU</span>
+        <span className="text-gray-400 text-xs">Powered by ByteTrix</span>
       </div>
     </div>
   );
