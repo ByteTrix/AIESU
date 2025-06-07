@@ -18,12 +18,31 @@ const Index = () => {
     if (!emailText.trim()) return;
     
     setIsLoading(true);
+    setSummary(""); // Clear previous summary
     
-    // Simulate API call - will be replaced with actual n8n endpoint
-    setTimeout(() => {
-      setSummary("This is a sample summary of your email. The actual AI-powered summarization will be implemented with your n8n workflow endpoint.");
+    try {
+      const response = await fetch('https://n8n-latest-x67i.onrender.com/webhook-test/ce7d3316-e4a8-473c-8ce2-39bc3aeb2b9e', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: emailText
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setSummary(data.summary || data.message || "Summary generated successfully!");
+      } else {
+        setSummary("Error generating summary. Please try again.");
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setSummary("Failed to connect to the AI service. Please check your connection and try again.");
+    } finally {
       setIsLoading(false);
-    }, 2000);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -33,14 +52,23 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
-      {/* Enhanced floating particles background effect */}
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black relative overflow-hidden">
+      {/* Premium dark particles background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-purple-400 rounded-full animate-float opacity-60"></div>
-        <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-blue-400 rounded-full animate-float-delayed opacity-40"></div>
-        <div className="absolute top-1/2 left-3/4 w-1.5 h-1.5 bg-cyan-400 rounded-full animate-float-slow opacity-50"></div>
-        <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-emerald-400 rounded-full animate-twinkle opacity-40"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-2 h-2 bg-violet-400 rounded-full animate-orbit opacity-30"></div>
+        {/* Larger floating orbs */}
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-purple-600/10 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute top-3/4 right-1/4 w-24 h-24 bg-blue-600/10 rounded-full blur-2xl animate-float-delayed"></div>
+        <div className="absolute top-1/2 left-3/4 w-28 h-28 bg-cyan-600/10 rounded-full blur-3xl animate-float-slow"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-20 h-20 bg-violet-600/10 rounded-full blur-2xl animate-orbit"></div>
+        
+        {/* Small twinkling particles */}
+        <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-purple-400 rounded-full animate-twinkle opacity-60"></div>
+        <div className="absolute top-2/3 left-1/5 w-1.5 h-1.5 bg-blue-400 rounded-full animate-twinkle opacity-40"></div>
+        <div className="absolute top-1/5 left-2/3 w-1 h-1 bg-cyan-400 rounded-full animate-twinkle opacity-50"></div>
+        
+        {/* Gradient mesh overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-radial from-transparent via-purple-950/20 to-black/30"></div>
       </div>
 
       {/* Header */}
@@ -49,68 +77,70 @@ const Index = () => {
       </header>
 
       {/* Main Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center px-6 py-12">
+      <div className="relative z-10 flex flex-col items-center justify-center px-6 py-8">
         <div className="w-full max-w-4xl text-center mb-12 animate-fade-in-up">
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <Sparkles className="w-8 h-8 text-purple-400 animate-sparkle" />
-            <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent animate-text-shimmer">
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <Sparkles className="w-10 h-10 text-purple-400 animate-sparkle" />
+            <h1 className="text-6xl md:text-7xl font-black bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent animate-text-shimmer leading-tight">
               AI Email Summarizer
             </h1>
-            <Sparkles className="w-8 h-8 text-cyan-400 animate-sparkle-delayed" />
+            <Sparkles className="w-10 h-10 text-cyan-400 animate-sparkle-delayed" />
           </div>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto animate-fade-in-up delay-200">
-            Transform lengthy emails into concise, actionable summaries with the power of AI
+          <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto animate-fade-in-up delay-200 leading-relaxed">
+            Transform lengthy emails into concise, actionable insights with cutting-edge AI technology
           </p>
         </div>
 
         {/* Input Section */}
         <div className="w-full max-w-3xl animate-fade-in-up delay-400">
-          <Card className={`p-1 mb-6 bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 shadow-2xl rounded-2xl transition-all duration-500 transform hover:scale-[1.02] ${
-            isFocused ? 'ring-2 ring-purple-500/50 shadow-purple-500/25 shadow-2xl glow-effect' : ''
+          <Card className={`p-1.5 mb-8 bg-gray-900/30 backdrop-blur-2xl border border-gray-800/50 shadow-2xl rounded-3xl transition-all duration-700 transform hover:scale-[1.01] ${
+            isFocused ? 'ring-2 ring-purple-500/40 shadow-purple-500/20 shadow-2xl glow-effect' : ''
           }`}>
-            <div className="bg-gray-900/80 rounded-xl p-6 space-y-4">
+            <div className="bg-gray-950/60 rounded-2xl p-8 space-y-6 border border-gray-800/30">
               <div className="relative">
                 <Textarea
-                  placeholder="Paste your email content here and watch AI work its magic..."
+                  placeholder="Paste your email content here and experience the magic of AI summarization..."
                   value={emailText}
                   onChange={(e) => setEmailText(e.target.value)}
                   onKeyDown={handleKeyPress}
                   onFocus={() => setIsFocused(true)}
                   onBlur={() => setIsFocused(false)}
-                  className="min-h-[160px] bg-gray-800/50 border-gray-600/50 text-white placeholder:text-gray-400 resize-none rounded-xl focus:border-purple-500/50 focus:ring-purple-500/20 transition-all duration-300 focus:shadow-lg focus:shadow-purple-500/10"
+                  className="min-h-[180px] bg-gray-900/40 border-gray-700/50 text-white placeholder:text-gray-500 resize-none rounded-2xl focus:border-purple-500/50 focus:ring-purple-500/20 transition-all duration-500 focus:shadow-lg focus:shadow-purple-500/10 text-lg leading-relaxed"
                 />
-                <div className="absolute bottom-3 right-3 text-xs text-gray-500 transition-colors duration-200">
+                <div className="absolute bottom-4 right-4 text-sm text-gray-500 transition-colors duration-300 bg-gray-800/50 px-3 py-1 rounded-full">
                   {emailText.length} characters
                 </div>
               </div>
               
-              <div className="flex justify-between items-center">
-                <div className="text-sm text-gray-400 animate-fade-in">
-                  <kbd className="px-2 py-1 bg-gray-700 rounded text-xs transition-colors duration-200 hover:bg-gray-600">Ctrl</kbd> + 
-                  <kbd className="px-2 py-1 bg-gray-700 rounded text-xs ml-1 transition-colors duration-200 hover:bg-gray-600">Enter</kbd> to summarize
+              <div className="flex justify-between items-center pt-2">
+                <div className="text-sm text-gray-500 animate-fade-in flex items-center gap-2">
+                  <span className="text-gray-400">Quick tip:</span>
+                  <kbd className="px-3 py-1.5 bg-gray-800/60 rounded-lg text-xs border border-gray-700/50 transition-all duration-200 hover:bg-gray-700/60">Ctrl</kbd> + 
+                  <kbd className="px-3 py-1.5 bg-gray-800/60 rounded-lg text-xs ml-1 border border-gray-700/50 transition-all duration-200 hover:bg-gray-700/60">Enter</kbd> 
+                  <span className="text-gray-500">to summarize</span>
                 </div>
                 <Button 
                   onClick={handleSummarize}
                   disabled={!emailText.trim() || isLoading}
-                  className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white border-0 rounded-xl px-8 py-3 flex items-center gap-2 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 disabled:opacity-50 disabled:hover:scale-100 shadow-lg animate-button-glow"
+                  className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 hover:from-purple-700 hover:via-blue-700 hover:to-cyan-700 text-white border-0 rounded-2xl px-10 py-4 flex items-center gap-3 transition-all duration-500 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 disabled:opacity-50 disabled:hover:scale-100 shadow-xl animate-button-glow text-lg font-semibold"
                 >
-                  <Send className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-                  <span className="font-medium">Summarize</span>
+                  <Send className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+                  <span>Summarize</span>
                 </Button>
               </div>
             </div>
           </Card>
 
-          {/* Loading Animation */}
+          {/* Loading Animation with enhanced positioning */}
           {isLoading && (
-            <div className="mb-6 animate-fade-in-scale">
+            <div className="mb-8 animate-slide-up-bounce">
               <LoadingAnimation />
             </div>
           )}
 
-          {/* Response Section */}
+          {/* Response Section with premium animation */}
           {summary && !isLoading && (
-            <div className="animate-slide-up">
+            <div className="animate-response-appear">
               <SummaryResponse summary={summary} />
             </div>
           )}
