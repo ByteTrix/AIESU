@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -107,17 +106,32 @@ const Index = () => {
           <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto animate-fade-in-up delay-200 leading-relaxed">
             Transform lengthy emails into concise, actionable insights with cutting-edge AI technology
           </p>
-        </div>
-
-        {/* Input Section */}
+        </div>        {/* Input Section */}
         <div className="w-full max-w-3xl animate-fade-in-up delay-400">
           <div className="relative">
-            {/* Glow effect behind the card */}
+            {/* Revolving orange and blue border - Conditionally rendered */}
             {isFocused && (
-              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 rounded-3xl blur-xl opacity-30 animate-glow-pulse"></div>
+              <div className="absolute -inset-2 rounded-3xl animate-revolving-orange-blue-border"></div>
             )}
             
-            <Card className="relative p-1.5 mb-8 bg-gray-900/30 backdrop-blur-2xl border border-gray-800/50 shadow-2xl rounded-3xl transition-all duration-700 transform hover:scale-[1.01]">
+            {/* Traveling lights around the border - Conditionally rendered */}
+            {/* {isFocused && (
+              <>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div className="w-2.5 h-2.5 bg-orange-500 rounded-full animate-traveling-light shadow-[0_0_12px_2px_rgba(249,115,22,0.7)]"></div>
+                </div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div className="w-2.5 h-2.5 bg-blue-500 rounded-full animate-traveling-light shadow-[0_0_12px_2px_rgba(59,130,246,0.7)]" style={{ animationDelay: '2.5s' }}></div>
+                </div>
+              </>
+            )} */}
+            
+            {/* Enhanced glow effect behind the card - Now colorless or removed */}
+            {/* {isFocused && (
+              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 rounded-3xl blur-xl animate-glow-pulse"></div>
+            )} */}
+            
+            <Card className="relative p-1.5 mb-8 bg-gray-900/30 backdrop-blur-2xl border border-gray-800/50 shadow-2xl rounded-3xl transition-all duration-700">
               <div className="bg-gray-950/60 rounded-2xl p-8 space-y-6 border border-gray-800/30">
                 <div className="relative">
                   <Textarea
@@ -135,22 +149,22 @@ const Index = () => {
                 </div>
                 
                 <div className="flex justify-between items-center pt-2">
-                  <div className="text-sm text-gray-500 animate-fade-in flex items-center gap-2">
-                    <span className="text-gray-400">Quick tip:</span>
-                    <kbd className="px-3 py-1.5 bg-gray-800/60 rounded-lg text-xs border border-gray-700/50 transition-all duration-200 hover:bg-gray-700/60">Ctrl</kbd> + 
-                    <kbd className="px-3 py-1.5 bg-gray-800/60 rounded-lg text-xs ml-1 border border-gray-700/50 transition-all duration-200 hover:bg-gray-700/60">Enter</kbd> 
-                    <span className="text-gray-500">to summarize</span>
+                  <div className="text-xs text-gray-500/80 animate-fade-in flex items-center gap-1.5 font-mono tracking-tight">
+                    <span className="text-gray-400/90">Press</span>
+                    <kbd className="px-2 py-1 bg-gray-800/70 rounded-md text-gray-300/90 border border-gray-700/60 shadow-sm transition-all duration-200 hover:bg-gray-700/70 hover:border-gray-600/70">Ctrl</kbd>
+                    <span className="text-gray-400/90">+</span>
+                    <kbd className="px-2 py-1 bg-gray-800/70 rounded-md text-gray-300/90 border border-gray-700/60 shadow-sm transition-all duration-200 hover:bg-gray-700/70 hover:border-gray-600/70">Enter</kbd> 
+                    <span className="text-gray-400/90">to summarize</span>
                   </div>
                   <Button 
                     onClick={handleSummarize}
                     disabled={!emailText.trim() || isLoading}
-                    className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 hover:from-purple-700 hover:via-blue-700 hover:to-cyan-700 text-white border-0 rounded-2xl px-10 py-4 flex items-center gap-3 transition-all duration-500 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 disabled:opacity-50 disabled:hover:scale-100 shadow-xl animate-button-glow text-lg font-semibold"
+                    className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 hover:from-purple-700 hover:via-blue-700 hover:to-cyan-700 text-white border-0 rounded-2xl px-10 py-4 flex items-center gap-3 transition-all duration-500 hover:shadow-lg hover:shadow-purple-500/25 disabled:opacity-50 shadow-xl animate-premium-button-hover text-lg font-semibold"
                   >
                     <Send className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                     <span>Summarize</span>
                   </Button>
-                </div>
-              </div>
+                </div>              </div>
             </Card>
           </div>
 

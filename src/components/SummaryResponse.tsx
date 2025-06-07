@@ -1,8 +1,10 @@
-
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Copy, CheckCheck, Sparkles } from "lucide-react";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 interface SummaryResponseProps {
   summary: string;
@@ -52,12 +54,17 @@ export const SummaryResponse = ({ summary }: SummaryResponseProps) => {
             )}
           </Button>
         </div>
-        <div className="prose prose-sm max-w-none animate-fade-in-up delay-200">
-          <div className="text-gray-200 leading-relaxed whitespace-pre-wrap bg-gray-800/30 rounded-lg p-4 border border-gray-700/30 relative overflow-hidden">
+        <div className="animate-fade-in-up delay-200">
+          <div className="bg-slate-700/50 rounded-lg p-4 border border-gray-700/30 relative overflow-hidden">
             {/* Subtle animated border */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/20 to-transparent animate-pulse rounded-lg"></div>
-            <div className="relative z-10">
-              {summary}
+            <div className="relative z-10 prose prose-sm max-w-none text-slate-50 
+                          prose-strong:text-yellow-400 
+                          prose-a:text-blue-400 prose-a:underline 
+                          prose-ul:list-disc prose-ul:pl-5 prose-li:my-1">
+              <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                {summary}
+              </ReactMarkdown>
             </div>
           </div>
         </div>
